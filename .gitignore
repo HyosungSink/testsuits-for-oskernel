@@ -28,7 +28,7 @@ interrupts-test/interrupts-test-*
 k210/disk.img*
 k210/img.kfpkg
 *.img.gz
-*.img.xz
+/sdcard-*.img.xz
 
 lmbench_src/libtirpc-1.3.6/
 lmbench_src/bin/
