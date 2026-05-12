@@ -61,7 +61,7 @@ SAMPLES=lmbench/Results/aix/rs6000 lmbench/Results/hpux/snake \
 	lmbench/Results/osf1/alpha lmbench/Results/solaris/ss20* 
 
 
-COMPILE=$(CC) $(CFLAGS) -I/usr/include/tirpc  $(CPPFLAGS) $(LDFLAGS) 
+COMPILE=$(CC) $(CFLAGS) -I../libtirpc-1.3.6/tirpc -L../libtirpc-1.3.6/src/.libs  $(CPPFLAGS) $(LDFLAGS) 
 
 INCS =	bench.h lib_mem.h lib_tcp.h lib_udp.h stats.h timing.h
 
@@ -524,4 +524,3 @@ $O/lat_rand:  lat_rand.c timing.h stats.h bench.h $O/lmbench.a
 $O/lat_cmd.s:lat_cmd.c timing.h stats.h bench.h
 $O/lat_cmd:  lat_cmd.c timing.h stats.h bench.h $O/lmbench.a
 	$(COMPILE) -o $O/lat_cmd lat_cmd.c $O/lmbench.a $(LDLIBS) -ltirpc
-

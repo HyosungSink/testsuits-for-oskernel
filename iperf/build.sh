@@ -16,7 +16,7 @@ else
     fi
 fi
 
-make V=1 -j 
+make V=1 -j "${NPROC:-16}"
 #cp src/.libs/iperf3 $1
 cp src/iperf3 $1
 #cp src/.libs/libiperf.so $1

@@ -25,4 +25,4 @@ else
     fi
 fi
 
-make V=1 -j  && make install DESTDIR=/
+make V=1 -j "${NPROC:-16}" && make install DESTDIR=/
