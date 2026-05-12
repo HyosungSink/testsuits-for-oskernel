@@ -3,7 +3,8 @@ CC := $(PREFIX)gcc
 HOST := $(patsubst %-gcc,%,$(CC))
 STRIP := $(PREFIX)strip
 DESTDIR ?= /code/sdcard/riscv/glibc
-NPROC ?= 16
+NPROC ?= 8
+RT_TESTS_JOBS ?= 1
 
 ifneq (,$(findstring riscv64,$(PREFIX)))
     ARCH := riscv64
@@ -34,7 +35,7 @@ lua: .PHONY
 	cp scripts/lua/* $(DESTDIR)/
 
 libc-test: .PHONY
-	make -C libc-test disk PREFIX=$(PREFIX) -j 1
+	make -C libc-test disk PREFIX=$(PREFIX) -j $(NPROC)
 	cp -r libc-test/disk/* $(DESTDIR)/
 	mkdir -p $(DESTDIR)/lib/
 	cp libc-test/src/functional/*.so libc-test/src/regression/*.so $(DESTDIR)/lib
@@ -70,7 +71,7 @@ lmbench_src: .PHONY
 
 cyclictest:  .PHONY
 	make -C rt-tests-2.7 clean	
-	make -C rt-tests-2.7 CROSS_COMPILE=$(PREFIX) -j $(NPROC)
+	make -C rt-tests-2.7 CROSS_COMPILE=$(PREFIX) -j $(RT_TESTS_JOBS)
 	cp rt-tests-2.7/cyclictest ${DESTDIR}/
 	cp rt-tests-2.7/hackbench ${DESTDIR}/
 	cp scripts/cyclictest/* $(DESTDIR)/
